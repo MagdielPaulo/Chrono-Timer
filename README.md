@@ -1,6 +1,6 @@
 # Chrono-Timer
 
-Um cronômetro para gerenciar gerenciar o seu tempo. Exatamente um método conhecido como Timer Pomodoro.
+Um cronômetro para gerenciar o seu tempo. Exatamente um método conhecido como Timer Pomodoro.
 
 No qual a técnica consiste na utilização de um cronômetro para dividir o trabalho em períodos de 25 minutos, separados por breves intervalos.
 
