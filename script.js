@@ -5,11 +5,11 @@ let pausa = document.getElementById('pausa')
 // Acessa o campo input de Sessões
 let sessoes = document.getElementById('sessoes')
 // Variável para contar os segundos
-let segundos
+
 
 // Acesso aos audios de alertas e colocando nas variáveis
-var bell = new Audio("./audio/bell.mp3")
-var volta = new Audio("./audio/volta.mp3")
+let bell = new Audio("./audio/bell.mp3")
+let volta = new Audio("./audio/volta.mp3")
 var final = new Audio("./audio/final.mp3")
 
 // Acessa a tag audio e os botões de pause e play
