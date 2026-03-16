@@ -8,7 +8,7 @@ Sistema Pomodoro moderno para produtividade, com gestão de tarefas, estatístic
 ![Bootstrap 5](https://img.shields.io/badge/Bootstrap-7952B3?style=flat&logo=bootstrap&logoColor=white)
 
 
-**🔗 Live:** [magdiel-paulo.vercel.app](https://chrono-timer-lilac.vercel.app/)
+**🔗 Live:** [Chronos Timer App](https://chrono-timer-lilac.vercel.app/)
 
 ---
 
