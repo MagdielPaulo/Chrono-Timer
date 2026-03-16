@@ -1,174 +1,266 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" data-theme="dark" data-accent="cyan">
 
 <head>
    <meta charset="UTF-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-   <!-- CSS do Bootstrap -->
-   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
-   <!-- CSS externo -->
+   <meta name="theme-color" content="#0a0a0f">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
    <link rel="stylesheet" href="./style.css">
-
-   <!-- Font Awesome -->
-   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-   <!-- icone -->
-   <link rel="icon" href="./img/relogio.png" type="image/png">
-
    <title>Chronos Timer</title>
 </head>
 
-<body class="badge-dark">
+<body>
 
-   <!-- Menu | INICIO -->
-   <nav class="navbar navbar-expand-lg navbar-light bg-primary">
-      <a class="navbar-brand font-weight-bold text-white" href="index.html">Chronos Timer</a>
-
-      <div class="ml-auto">
-         <a onclick="pausar()">
-            <i id="pause" class="fa fa-pause text-white" style="font-size: 25pt; display: none;" aria-hidden="true"></i>
-         </a>
-
-         <a onclick='executar()'>
-            <i id='play' class="fa fa-play text-white" style="font-size: 25pt; display: none;" aria-hidden="true"></i>
-         </a>
-
-         <audio id="lofi" src="./audio/lo-fi.mp3" type="audio/mpeg"></audio>
+   <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+         <div class="sidebar-logo">
+            <i class="fa-solid fa-stopwatch"></i>
+            <span>Chronos</span>
+         </div>
+         <button id="sidebar-close" class="sidebar-close-btn">
+            <i class="fa-solid fa-xmark"></i>
+         </button>
       </div>
 
-   </nav>
-   <!-- /Menu | FIM -->
+      <nav class="sidebar-nav">
+         <button class="sidebar-link active" data-view="timer">
+            <i class="fa-solid fa-clock"></i>
+            <span>Timer</span>
+         </button>
+         <button class="sidebar-link" data-view="tasks">
+            <i class="fa-solid fa-list-check"></i>
+            <span>Tarefas</span>
+         </button>
+         <button class="sidebar-link" data-view="stats">
+            <i class="fa-solid fa-chart-column"></i>
+            <span>Estatísticas</span>
+         </button>
+         <button class="sidebar-link" data-view="settings">
+            <i class="fa-solid fa-gear"></i>
+            <span>Configurações</span>
+         </button>
+      </nav>
 
-   <!-- Container | INICIO -->
+      <div class="sidebar-footer">
+         <button id="theme-toggle-btn" class="theme-toggle-btn" title="Alterar tema">
+            <i class="fa-solid fa-moon"></i>
+         </button>
+      </div>
+   </aside>
 
-   <div class="container">
+   <div id="sidebar-overlay" class="sidebar-overlay"></div>
 
-      <!-- Config | INICIO -->
+   <main id="main-content" class="main-content">
 
-      <div class="row d-flex justify-content-center mt-5 mb-5">
+      <header class="topbar">
+         <button id="sidebar-open" class="topbar-menu-btn">
+            <i class="fa-solid fa-bars"></i>
+         </button>
+         <span id="current-date" class="topbar-date"></span>
+         <div class="topbar-actions"></div>
+      </header>
 
-         <div class="col-md-8">
+      <section id="view-timer" class="app-view active">
 
+         <div id="timer-config">
+            <h1 class="view-title">Novo Foco</h1>
+            <p class="view-subtitle">Configure sua sessão de produtividade</p>
 
-            <div id="config" class="row d-flex justify-content-center">
-
-               <div class="col">
-
-                  <!-- Inputs | INICIO -->
-                  <div class="row d-flex justify-content-center">
-                     <div class="col-md-3 d-flex justify-content-center">
-                        <div class="form-group">
-                           <label class="d-flex justify-content-center text-white font-weight-bold"
-                              for="acao">Ação</label>
-                           <input type="number" class="form-control form-control-lg bg-dark border-0 shadow text-white"
-                              id="acao">
-                           <small class="text-danger" id='erro_acao'></small>
-                        </div>
-                     </div>
-                     <div class="col-md-3 d-flex justify-content-center">
-                        <div class="form-group">
-                           <label class="d-flex justify-content-center text-white font-weight-bold"
-                              for="pausa">Pausa</label>
-                           <input type="number" class="form-control form-control-lg bg-dark border-0 shadow text-white"
-                              id="pausa">
-                           <small class="text-danger" id='erro_pausa'></small>
-                        </div>
-                     </div>
-                     <div class="col-md-3 d-flex justify-content-center">
-                        <div class="form-group">
-                           <label class="d-flex justify-content-center text-white font-weight-bold"
-                              for="sessoes">Sessões</label>
-                           <input type="number" class="form-control form-control-lg bg-dark border-0 shadow text-white"
-                              id="sessoes">
-                           <small class="text-danger" id='erro_sessoes'></small>
-                        </div>
-                     </div>
+            <div class="config-grid">
+               <div class="config-card">
+                  <div class="config-icon config-icon--focus"><i class="fa-solid fa-bolt"></i></div>
+                  <label class="config-label">Foco</label>
+                  <div class="config-input-row">
+                     <button class="config-step-btn" data-action="decrease" data-target="input-focus"><i class="fa-solid fa-minus"></i></button>
+                     <input type="number" id="input-focus" class="config-input" value="25" min="1" max="120">
+                     <button class="config-step-btn" data-action="increase" data-target="input-focus"><i class="fa-solid fa-plus"></i></button>
                   </div>
-                  <!-- /Inputs | FIM -->
-
-                  <!-- Botão iniciar |  INICIO -->
-
-                  <div class="row mt-5 mb-5 d-flex justify-content-center">
-                     <div class="col-md-9">
-                        <button onclick="iniciar()" class="btn btn-primary shadow btn-lg btn-block">Start</button>
-                     </div>
-                  </div>
-
-                  <!-- /Botão iniciar | FIM -->
-
+                  <span class="config-unit">minutos</span>
                </div>
-
+               <div class="config-card">
+                  <div class="config-icon config-icon--break"><i class="fa-solid fa-mug-hot"></i></div>
+                  <label class="config-label">Pausa</label>
+                  <div class="config-input-row">
+                     <button class="config-step-btn" data-action="decrease" data-target="input-break"><i class="fa-solid fa-minus"></i></button>
+                     <input type="number" id="input-break" class="config-input" value="5" min="1" max="60">
+                     <button class="config-step-btn" data-action="increase" data-target="input-break"><i class="fa-solid fa-plus"></i></button>
+                  </div>
+                  <span class="config-unit">minutos</span>
+               </div>
+               <div class="config-card">
+                  <div class="config-icon config-icon--sessions"><i class="fa-solid fa-repeat"></i></div>
+                  <label class="config-label">Sessões</label>
+                  <div class="config-input-row">
+                     <button class="config-step-btn" data-action="decrease" data-target="input-sessions"><i class="fa-solid fa-minus"></i></button>
+                     <input type="number" id="input-sessions" class="config-input" value="4" min="1" max="20">
+                     <button class="config-step-btn" data-action="increase" data-target="input-sessions"><i class="fa-solid fa-plus"></i></button>
+                  </div>
+                  <span class="config-unit">ciclos</span>
+               </div>
             </div>
 
+            <div class="presets-row">
+               <span class="presets-label">Atalhos:</span>
+               <button class="preset-chip" data-focus="25" data-break="5" data-sessions="4">🍅 Clássico</button>
+               <button class="preset-chip" data-focus="50" data-break="10" data-sessions="2">🧠 Deep Work</button>
+               <button class="preset-chip" data-focus="15" data-break="3" data-sessions="6">⚡ Sprint</button>
+               <button class="preset-chip" data-focus="90" data-break="20" data-sessions="1">🔥 Ultra</button>
+            </div>
+
+            <button id="btn-start" class="btn-start">
+               <i class="fa-solid fa-play"></i>
+               <span>Iniciar Foco</span>
+            </button>
          </div>
 
-      </div>
-      <!-- /config | FIM -->
-
-      <!-- Timer | INICIO -->
-
-      <div id="timer" class="mt-0 d-flex justify-content-center">
-
-         <div class="row mb-3">
-            <div class="col">
-               <h3 id='title' class="text-center"></h3>
+         <div id="timer-active" class="timer-active" style="display:none;">
+            <div class="timer-ring-wrap">
+               <svg class="timer-ring" viewBox="0 0 400 400">
+                  <circle class="timer-ring-bg" cx="200" cy="200" r="175" />
+                  <circle id="timer-ring-progress" class="timer-ring-progress" cx="200" cy="200" r="175" />
+               </svg>
+               <div class="timer-center">
+                  <span id="timer-phase-label" class="timer-phase-label">FOCO</span>
+                  <div class="timer-digits">
+                     <span id="timer-min">25</span><span class="timer-colon">:</span><span id="timer-sec">00</span>
+                  </div>
+                  <span id="timer-session-label" class="timer-session-label">Sessão 1 de 4</span>
+               </div>
+            </div>
+            <div id="session-dots" class="session-dots"></div>
+            <div class="timer-controls">
+               <button id="btn-reset" class="timer-btn timer-btn--secondary" title="Resetar"><i class="fa-solid fa-rotate-left"></i></button>
+               <button id="btn-pause" class="timer-btn timer-btn--primary" title="Pausar"><i class="fa-solid fa-pause"></i></button>
+               <button id="btn-skip" class="timer-btn timer-btn--secondary" title="Pular"><i class="fa-solid fa-forward"></i></button>
             </div>
          </div>
 
-         <!-- Relogio | INICIO -->
-         <div class="row shadow time">
-            <div class="col-5 p-0 ">
-               <h2 id="minutes_ok"></h2>
+         <div id="timer-done" class="timer-done" style="display:none;">
+            <div class="done-icon">🎉</div>
+            <h2 class="done-title">Sessão Completa!</h2>
+            <p class="done-subtitle">Excelente trabalho. Você completou todas as sessões.</p>
+            <div class="done-stats">
+               <div class="done-stat">
+                  <span id="done-minutes" class="done-stat-value">0</span>
+                  <span class="done-stat-label">Minutos focados</span>
+               </div>
+               <div class="done-stat">
+                  <span id="done-sessions" class="done-stat-value">0</span>
+                  <span class="done-stat-label">Sessões concluídas</span>
+               </div>
             </div>
-            <div class="col-1 p-0 d-flex justify-content-center">
-               <h2>:</h2>
+            <button id="btn-new-session" class="btn-start">
+               <i class="fa-solid fa-arrow-rotate-right"></i>
+               <span>Nova Sessão</span>
+            </button>
+         </div>
+      </section>
+
+      <section id="view-tasks" class="app-view">
+         <h1 class="view-title">Tarefas</h1>
+         <p class="view-subtitle">Organize o que precisa ser feito</p>
+         <div class="task-add-row">
+            <input type="text" id="task-input" class="task-text-input" placeholder="Adicionar nova tarefa..." maxlength="120">
+            <select id="task-priority-select" class="task-priority-select">
+               <option value="low">Baixa</option>
+               <option value="medium" selected>Média</option>
+               <option value="high">Alta</option>
+            </select>
+            <button id="btn-add-task" class="btn-add-task"><i class="fa-solid fa-plus"></i></button>
+         </div>
+         <div class="task-filters">
+            <button class="task-filter active" data-filter="all">Todas</button>
+            <button class="task-filter" data-filter="active">Pendentes</button>
+            <button class="task-filter" data-filter="completed">Concluídas</button>
+         </div>
+         <ul id="task-list" class="task-list"></ul>
+         <div id="task-empty" class="task-empty">
+            <i class="fa-solid fa-clipboard-list"></i>
+            <p>Nenhuma tarefa ainda. Adicione uma acima!</p>
+         </div>
+      </section>
+
+      <section id="view-stats" class="app-view">
+         <h1 class="view-title">Estatísticas</h1>
+         <p class="view-subtitle">Acompanhe sua produtividade</p>
+         <div class="stats-cards">
+            <div class="stat-card"><i class="fa-solid fa-fire"></i><span id="stat-streak" class="stat-value">0</span><span class="stat-label">Dias seguidos</span></div>
+            <div class="stat-card"><i class="fa-solid fa-clock"></i><span id="stat-total-time" class="stat-value">0m</span><span class="stat-label">Tempo total</span></div>
+            <div class="stat-card"><i class="fa-solid fa-bullseye"></i><span id="stat-total-sessions" class="stat-value">0</span><span class="stat-label">Sessões totais</span></div>
+            <div class="stat-card"><i class="fa-solid fa-trophy"></i><span id="stat-best-day" class="stat-value">0min</span><span class="stat-label">Melhor dia</span></div>
+         </div>
+         <div class="chart-box">
+            <h3 class="chart-title">Últimos 7 dias</h3>
+            <div id="weekly-chart" class="weekly-chart"></div>
+         </div>
+         <div class="chart-box">
+            <h3 class="chart-title">Histórico recente</h3>
+            <ul id="history-list" class="history-list"></ul>
+         </div>
+      </section>
+
+      <section id="view-settings" class="app-view">
+         <h1 class="view-title">Configurações</h1>
+         <p class="view-subtitle">Personalize sua experiência</p>
+
+         <div class="settings-group">
+            <h3 class="settings-group-title">Aparência</h3>
+            <div class="setting-row">
+               <div><span class="setting-label">Tema</span><span class="setting-desc">Escolha entre claro e escuro</span></div>
+               <div class="theme-options">
+                  <button class="theme-opt active" data-theme="dark"><i class="fa-solid fa-moon"></i> Escuro</button>
+                  <button class="theme-opt" data-theme="light"><i class="fa-solid fa-sun"></i> Claro</button>
+               </div>
             </div>
-            <div class="col-5 pl-0">
-               <h2 id="seconds_ok"></h2>
+            <div class="setting-row">
+               <div><span class="setting-label">Cor de destaque</span><span class="setting-desc">Personalize a cor principal</span></div>
+               <div class="color-options">
+                  <button class="color-dot active" data-accent="cyan" style="--dot:#00e5ff"></button>
+                  <button class="color-dot" data-accent="violet" style="--dot:#a855f7"></button>
+                  <button class="color-dot" data-accent="emerald" style="--dot:#10b981"></button>
+                  <button class="color-dot" data-accent="rose" style="--dot:#f43f5e"></button>
+                  <button class="color-dot" data-accent="amber" style="--dot:#f59e0b"></button>
+                  <button class="color-dot" data-accent="blue" style="--dot:#3b82f6"></button>
+               </div>
             </div>
          </div>
-         <!-- /Relogio | FIM -->
-
-         <div class="row mt-5">
-            <div class="col">
-               <h3 id='title_sessao' class="text-center text-secondary"></h3>
+         <div class="settings-group">
+            <h3 class="settings-group-title">Timer</h3>
+            <div class="setting-row">
+               <div><span class="setting-label">Notificações</span><span class="setting-desc">Alerta do navegador ao trocar fase</span></div>
+               <label class="toggle-switch"><input type="checkbox" id="setting-notifications"><span class="toggle-slider"></span></label>
+            </div>
+            <div class="setting-row">
+               <div><span class="setting-label">Som de alerta</span><span class="setting-desc">Som suave ao trocar de fase</span></div>
+               <label class="toggle-switch"><input type="checkbox" id="setting-alert-sound" checked><span class="toggle-slider"></span></label>
+            </div>
+            <div class="setting-row">
+               <div><span class="setting-label">Volume dos alertas</span><span class="setting-desc">Ajuste a intensidade</span></div>
+               <input type="range" id="alert-volume" class="custom-range custom-range--sm" min="0" max="100" value="30">
             </div>
          </div>
-
-      </div>
-      <!-- /Timer | FIM -->
-
-      <!-- Finalização | INICIO -->
-      <div id="fim" style="display: none;">
-         <h1 class="text-success text-center">ACABOOOU!! Tempo finalizado.</h1>
-         <div class="row mt-5 mb-5 d-flex justify-content-center">
-            <div class="col-md-9 d-flex justify-content-center">
-               <a href="./index.html" class="btn btn-primary shadow btn-lg">Home</a>
+         <div class="settings-group">
+            <h3 class="settings-group-title">Dados</h3>
+            <div class="setting-row">
+               <div><span class="setting-label">Limpar estatísticas</span><span class="setting-desc">Resetar tudo</span></div>
+               <button id="btn-clear-stats" class="btn-danger-sm">Limpar</button>
+            </div>
+            <div class="setting-row">
+               <div><span class="setting-label">Limpar tarefas</span><span class="setting-desc">Remover todas</span></div>
+               <button id="btn-clear-tasks" class="btn-danger-sm">Limpar</button>
             </div>
          </div>
-      </div>
-      <!-- /Finalização | FIM -->
+      </section>
 
+   </main>
 
-   </div>
-   <!-- /Container | FIM -->
-
-
-
+   <div id="toast-container" class="toast-container"></div>
    <script src="./script.js"></script>
-   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-      crossorigin="anonymous"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-      crossorigin="anonymous"></script>
-   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-      integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-      crossorigin="anonymous"></script>
 </body>
 
 </html>
