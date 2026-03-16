@@ -7,6 +7,9 @@ Sistema Pomodoro moderno para produtividade, com gestão de tarefas, estatístic
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
 ![Bootstrap 5](https://img.shields.io/badge/Bootstrap-7952B3?style=flat&logo=bootstrap&logoColor=white)
 
+
+**🔗 Live:** [magdiel-paulo.vercel.app](https://magdiel-paulo.vercel.app/)
+
 ---
 
 ## Funcionalidades
