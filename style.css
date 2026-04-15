@@ -229,7 +229,7 @@ input[type="number"]{-moz-appearance:textfield}
 .task-add-row{display:flex;gap:8px;margin-bottom:18px}
 
 .task-text-input{
-   flex:1;padding:12px 18px;background:var(--bg-1);
+   flex:1;padding:12px 18px;min-height:46px;background:var(--bg-1);
    border:1px solid var(--border);border-radius:var(--radius-md);
    color:var(--txt);font-family:var(--font);font-size:.92rem;outline:none;
    transition:border-color .15s var(--ease);
@@ -238,13 +238,14 @@ input[type="number"]{-moz-appearance:textfield}
 .task-text-input:focus{border-color:var(--primary)}
 
 .task-priority-select{
-   padding:0 14px;background:var(--bg-1);border:1px solid var(--border);
+   padding:0 10px;background:var(--bg-1);border:1px solid var(--border);
    border-radius:var(--radius-md);color:var(--txt);
    font-family:var(--font);font-size:.82rem;outline:none;cursor:pointer;
+   height:46px;
 }
 
 .btn-add-task{
-   width:46px;flex-shrink:0;border-radius:var(--radius-md);
+   width:46px;min-height:46px;flex-shrink:0;border-radius:var(--radius-md);
    background:var(--primary);border:none;color:#0a0a0f;font-size:1.1rem;
    cursor:pointer;display:flex;align-items:center;justify-content:center;
    transition:transform .15s var(--ease);

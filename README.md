@@ -38,7 +38,7 @@ Sistema Pomodoro moderno para produtividade, com gestão de tarefas, estatístic
 - Histórico recente com data, sessões e minutos
 
 ### Sons de Alerta
-- Gerados via Web Audio API (sem arquivos MP3 necessários)
+- Gerados via Web Audio API (sem arquivos de áudio externos)
 - Som suave de sino ao terminar o foco
 - Escala ascendente ao retornar ao foco
 - Melodia de conclusão ao finalizar todas as sessões
@@ -62,13 +62,6 @@ Sistema Pomodoro moderno para produtividade, com gestão de tarefas, estatístic
 
 ```
 CHRONO-TIMER/
-├── audio/
-│   ├── bell.mp3
-│   ├── final.mp3
-│   ├── lo-fi.mp3
-│   └── volta.mp3
-├── img/
-│   └── relogio.png
 ├── index.html
 ├── style.css
 ├── script.js
